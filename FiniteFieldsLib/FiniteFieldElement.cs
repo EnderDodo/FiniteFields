@@ -58,7 +58,7 @@ public class FiniteFieldElement :
         if (left.Parent != right.Parent)
             throw new ArgumentException("The elements are from different fields");
 
-        return left.Parent.GetElement(left.Polynomial * right.Polynomial);
+        return left.Parent.GetElement(left.Polynomial * right.Polynomial % left.Parent.IrreduciblePolynomial);
     }
 
     public static FiniteFieldElement operator /(FiniteFieldElement left, FiniteFieldElement right)

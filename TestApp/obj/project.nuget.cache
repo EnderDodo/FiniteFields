@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "KIpau01d7AS5Kb3AdHRqBZvUdVb63DRCaO/XtIeuCAs5EyKh1qOwRby+4GnIopAvq3p7yw/fqgRdl2PGvNbQ/Q==",
+  "dgSpecHash": "rgdFeQH9rZsf3lm770elpHTlcQ/7KNkySy6Xpge2URbIT23wPp1gfouSezM3zlH5stdvuhgEr+WQBHG+L1iwZQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Denis\\Documents\\RiderProjects\\FiniteFields\\TestApp\\TestApp.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Denis\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Denis\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
+    "C:\\Users\\Denis\\.nuget\\packages\\nunit\\3.13.3\\nunit.3.13.3.nupkg.sha512"
+  ],
   "logs": []
 }
