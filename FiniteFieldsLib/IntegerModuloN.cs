@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 namespace FiniteFieldsLib;
 
@@ -16,7 +17,7 @@ public class IntegerModuloN :
 
     public IntegerModuloN(int value, int n)
     {
-        Value = n + value % n;
+        Value = (n + value % n) % n;
         N = n;
     }
 
@@ -92,7 +93,7 @@ public class IntegerModuloN :
         if (N != other.N)
             throw new ArgumentException("Modules are being taken from different Ns");
 
-        return Value == other.Value % other.N;
+        return Value == other.Value;
     }
 
     public override int GetHashCode()

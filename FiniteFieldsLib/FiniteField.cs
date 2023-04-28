@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace FiniteFieldsLib;
 
 public class FiniteField

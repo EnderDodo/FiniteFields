@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
+
 
 namespace FiniteFieldsLib;
 
@@ -22,7 +24,7 @@ public class Polynomial<T> where T :
         Coefficients = new T[coefficients.Length];
         Array.Copy(coefficients, Coefficients, coefficients.Length);
         
-        if (Coefficients[^1] == zeroElement)
+        if (Coefficients[^1] == zeroElement && Coefficients.Length > 1)
         {
             DeleteMeaninglessZeros(ref Coefficients);
         }
@@ -31,7 +33,7 @@ public class Polynomial<T> where T :
     private void DeleteMeaninglessZeros(ref T[] coeffs)
     {
         int newDegree = coeffs.Length - 2;
-        for (; newDegree >= 0; newDegree--)
+        for (; newDegree > 0; newDegree--)
         {
             if (coeffs[newDegree] != ZeroElement)
             {
@@ -99,7 +101,11 @@ public class Polynomial<T> where T :
             throw new ArgumentException("Zero elements of the polynomials are different");
 
         T[] coeffs = new T[left.Degree + right.Degree + 1];
-
+        for  (int i = 0; i < coeffs.Length; i++)
+        {
+            coeffs[i] = left.ZeroElement;
+        }
+        
         for (int i = 0; i <= left.Degree; i++)
         for (int j = 0; j <= right.Degree; j++)
         {
@@ -123,6 +129,11 @@ public class Polynomial<T> where T :
         }
         
         T[] coeffs = new T[left.Degree - right.Degree + 1];
+        for  (int i = 0; i < coeffs.Length; i++)
+        {
+            coeffs[i] = left.ZeroElement;
+        }
+        
         T[] leftCoeffsClone = new T[left.Degree + 1];
         Array.Copy(left.Coefficients, leftCoeffsClone, left.Degree + 1);
         var leftClone = new Polynomial<T>(leftCoeffsClone, left.ZeroElement);
@@ -132,6 +143,11 @@ public class Polynomial<T> where T :
             coeffs[leftClone.Degree - right.Degree] = leftClone[leftClone.Degree] / right[right.Degree];
 
             var tempCoeff = new T[leftClone.Degree - right.Degree + 1];
+            for  (int i = 0; i < tempCoeff.Length; i++)
+            {
+                tempCoeff[i] = left.ZeroElement;
+            }
+            
             tempCoeff[leftClone.Degree - right.Degree] = coeffs[leftClone.Degree - right.Degree];
             var tempMultiplier = new Polynomial<T>(tempCoeff, left.ZeroElement);
 
@@ -150,6 +166,11 @@ public class Polynomial<T> where T :
             return left;
 
         T[] coeffs = new T[left.Degree - right.Degree + 1];
+        for  (int i = 0; i < coeffs.Length; i++)
+        {
+            coeffs[i] = left.ZeroElement;
+        }
+        
         T[] leftCoeffsClone = new T[left.Degree + 1];
         Array.Copy(left.Coefficients, leftCoeffsClone, left.Degree + 1);
         var leftClone = new Polynomial<T>(leftCoeffsClone, left.ZeroElement);
@@ -159,6 +180,11 @@ public class Polynomial<T> where T :
             coeffs[leftClone.Degree - right.Degree] = leftClone[leftClone.Degree] / right[right.Degree];
 
             var tempCoeff = new T[leftClone.Degree - right.Degree + 1];
+            for  (int i = 0; i < tempCoeff.Length; i++)
+            {
+                tempCoeff[i] = left.ZeroElement;
+            }
+            
             tempCoeff[leftClone.Degree - right.Degree] = coeffs[leftClone.Degree - right.Degree];
             var tempMultiplier = new Polynomial<T>(tempCoeff, left.ZeroElement);
 

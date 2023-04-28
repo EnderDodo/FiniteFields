@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 namespace FiniteFieldsLib;
 
@@ -10,14 +11,14 @@ public class FiniteFieldElement :
     IMultiplyOperators<FiniteFieldElement, FiniteFieldElement, FiniteFieldElement>, 
     IDivisionOperators<FiniteFieldElement, FiniteFieldElement, FiniteFieldElement>
 {
-    public FiniteField Parent { get; }
+    public FiniteField FieldParent { get; }
     public Polynomial<IntegerModuloN> Polynomial { get; }
-    public FiniteFieldElement Inverse => Pow(Parent.Order - 2);
+    public FiniteFieldElement Inverse => Pow(FieldParent.Order - 2);
 
     public FiniteFieldElement(Polynomial<IntegerModuloN> polynomial, FiniteField finiteField)
     {
         Polynomial = polynomial;
-        Parent = finiteField;
+        FieldParent = finiteField;
     }
     
     public static bool operator ==(FiniteFieldElement? left, FiniteFieldElement? right)
@@ -37,15 +38,15 @@ public class FiniteFieldElement :
 
     public static FiniteFieldElement operator -(FiniteFieldElement element)
     {
-        return element.Parent.GetElement(-element.Polynomial);
+        return element.FieldParent.GetElement(-element.Polynomial);
     }
 
     public static FiniteFieldElement operator +(FiniteFieldElement left, FiniteFieldElement right)
     {
-        if (left.Parent != right.Parent)
+        if (left.FieldParent != right.FieldParent)
             throw new ArgumentException("The elements are from different fields");
 
-        return left.Parent.GetElement(left.Polynomial + right.Polynomial);
+        return left.FieldParent.GetElement(left.Polynomial + right.Polynomial);
     }
 
     public static FiniteFieldElement operator -(FiniteFieldElement left, FiniteFieldElement right)
@@ -55,30 +56,30 @@ public class FiniteFieldElement :
 
     public static FiniteFieldElement operator *(FiniteFieldElement left, FiniteFieldElement right)
     {
-        if (left.Parent != right.Parent)
+        if (left.FieldParent != right.FieldParent)
             throw new ArgumentException("The elements are from different fields");
 
-        return left.Parent.GetElement(left.Polynomial * right.Polynomial % left.Parent.IrreduciblePolynomial);
+        return left.FieldParent.GetElement(left.Polynomial * right.Polynomial % left.FieldParent.IrreduciblePolynomial);
     }
 
     public static FiniteFieldElement operator /(FiniteFieldElement left, FiniteFieldElement right)
     {
-        if (left.Parent != right.Parent)
+        if (left.FieldParent != right.FieldParent)
             throw new ArgumentException("The elements are from different fields");
 
-        if (right == right.Parent.Zero)
+        if (right == right.FieldParent.Zero)
             throw new DivideByZeroException("Attempted to divide by zero");
 
-        return left.Parent.GetElement(left.Polynomial * right.Inverse.Polynomial % left.Parent.IrreduciblePolynomial);
+        return left.FieldParent.GetElement(left.Polynomial * right.Inverse.Polynomial % left.FieldParent.IrreduciblePolynomial);
     }
     
     public FiniteFieldElement Pow(int degree)
     {
-        degree %= Parent.Order - 1;
+        degree %= FieldParent.Order - 1;
         switch (degree)
         {
             case 0:
-                return Parent.One;
+                return FieldParent.One;
             case 1:
                 return this;
         }
@@ -96,19 +97,19 @@ public class FiniteFieldElement :
         if (ReferenceEquals(this, obj)) return true;
 
         var other = (FiniteFieldElement)obj;
-        if (Parent != other.Parent)
+        if (FieldParent != other.FieldParent)
             throw new ArgumentException("The elements are from different finite fields");
 
-        return Polynomial == other.Polynomial && Parent == other.Parent;
+        return Polynomial == other.Polynomial && FieldParent == other.FieldParent;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Parent, Polynomial);
+        return HashCode.Combine(FieldParent, Polynomial);
     }
     
     public override string ToString()
     {
-        return $"{Polynomial} of " + Parent;
+        return $"{Polynomial} of " + FieldParent;
     }
 }

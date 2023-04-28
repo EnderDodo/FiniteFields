@@ -1,4 +1,6 @@
-﻿namespace FiniteFieldsLib;
+﻿using System;
+
+namespace FiniteFieldsLib;
 
 public static class FFMath
 {

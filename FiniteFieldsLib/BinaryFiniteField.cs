@@ -1,4 +1,7 @@
-﻿namespace FiniteFieldsLib;
+﻿using System;
+using System.Linq;
+
+namespace FiniteFieldsLib;
 
 public class BinaryFiniteField : FiniteField
 {
