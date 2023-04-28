@@ -204,7 +204,7 @@ public class Polynomial<T> where T :
         if (ZeroElement != other.ZeroElement)
             throw new ArgumentException("The polynomials have different zero elements");
 
-        return Coefficients == other.Coefficients && ZeroElement == other.ZeroElement;
+        return Coefficients.SequenceEqual(other.Coefficients);
     }
 
     public override int GetHashCode()

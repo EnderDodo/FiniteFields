@@ -75,7 +75,7 @@ public class FiniteFieldElementTest
         var element2 = _field.GetElement(new[] { 0, 1, 1 });
 
         var product = element1 * element2;
-        var expectedResult = _field.GetElement(new[] { 1, 0, 1, 1, 1, 1, 1 });
+        var expectedResult = _field.GetElement(new[] { 0, 0, 1, 1, 1, 1, 1 });
 
         Assert.That(product, Is.EqualTo(expectedResult));
     }

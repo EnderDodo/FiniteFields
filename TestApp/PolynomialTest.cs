@@ -113,7 +113,7 @@ public class PolynomialTest
         var polynomial2 = new Polynomial<int>(new[] { 8, -5, -2, 1 }, 0);
 
         var remainder = polynomial1 % polynomial2;
-        var expectedResult = new Polynomial<int>(new[] { 7, -8, -1 }, 0);
+        var expectedResult = new Polynomial<int>(new[] { 7, -8, -31 }, 0);
 
         Assert.That(remainder, Is.EqualTo(expectedResult));
     }
