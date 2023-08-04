@@ -15,7 +15,7 @@ public class BinaryFiniteField : FiniteField
     }
 
     public FiniteFieldElement
-        GetElementFromBytes(params byte[] bytes) //big-endian method and *my* system is little-endian
+        GetElementFromBytes(params byte[] bytes) //big-endian method and *my* system is little-endian (apparently little-endian check is not necessary)
     {
         if (bytes.Length > 4)
             throw new ArgumentException($"Too many bytes! {bytes.Length} bytes cannot be converted to int32");
@@ -37,8 +37,8 @@ public class BinaryFiniteField : FiniteField
             number = BitConverter.ToInt32(bytes);
 
         var binaryString = Convert.ToString(number, 2).Reverse();
-        if (BitConverter.IsLittleEndian)
-            binaryString = binaryString.Reverse();
+        // if (BitConverter.IsLittleEndian)
+        //     binaryString = binaryString.Reverse();
 
         var polynomialCoeffs = binaryString.Select(item => item - '0').ToArray();
 
